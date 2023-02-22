@@ -99,15 +99,22 @@ void update(int id, product * root){
 
 int count(product * root, int id){
     int c = 0;
+    bool exist = false;
     product * pointing = root;
     while(pointing != NULL){
         if(pointing->id == id){
+            exist = true;
             break;
         }
         c++;
         pointing = pointing->next;
     }
-    return c;
+    if(exist){
+        return c;
+    }else{
+        return 0;
+    }
+
 }
 
 product * delete(product * root, int count){
@@ -118,7 +125,7 @@ product * delete(product * root, int count){
     product * delete = pointing->next;
     pointing->next = delete->next;
     free(delete);
-
+    printf("successfully deleted!\n");
     return root;
 }
 
@@ -176,7 +183,12 @@ int main()
                 printf("Enter an id:");
                 scanf("%d", &search_id);
                 count_index = count(product1, search_id);
-                product1 = delete(product1, count_index);
+                if(count_index == 0){
+                    printf("Id not found\n");
+                }else{
+                    product1 = delete(product1, count_index);
+                }
+
                 break;
         }
 
