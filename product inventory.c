@@ -119,12 +119,18 @@ int count(product * root, int id){
 
 product * delete(product * root, int count){
     product * pointing = root;
-    for(int i = 1; i < count; i++){
+    if(count == 1){
+        product * delete = pointing;
         pointing = pointing->next;
+        free(delete);
+    }else{
+        for(int i = 1; i < count; i++){
+            pointing = pointing->next;
+        }
+        product * delete = pointing->next;
+        pointing->next = delete->next;
+        free(delete);
     }
-    product * delete = pointing->next;
-    pointing->next = delete->next;
-    free(delete);
     printf("successfully deleted!\n");
     return root;
 }
